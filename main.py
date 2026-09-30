@@ -1,5 +1,6 @@
-from src.task_manager import add_task, delete_task, list_tasks
+from src.task_manager import add_task, delete_task, list_tasks, filter_tasks_by_status
 from src.file_handler import load_tasks
+
 
 
 def main():
@@ -30,6 +31,8 @@ def main():
             break
         else:
             print("Invalid choice. Try again.")
+
+
 
 
 if __name__ == "__main__":
