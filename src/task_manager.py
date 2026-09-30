@@ -111,6 +111,23 @@ def filter_tasks_by_status(tasks, status):
 
 
 def complete_task(tasks, title):
+    """
+    Mark supplied task status as complete.
+
+    Args:
+        tasks (list): The list of existing Task objects.
+        title (str): The title of the task to be updated.
+
+    Returns:
+        Empty
+
+    Side Effects:
+        - Saves the updated task list to a file using `save_tasks`.
+        - Prints
+            - Task has been successfully completed.
+            - Task is already complete.
+            - Task does not exist.
+    """    
     for task in tasks:
         if title == task.title:
             if task.status == "pending":
