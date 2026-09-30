@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from src.task_manager import add_task, delete_task, filter_tasks_by_status
 from src.task_manager import complete_task
 from src.file_handler import save_tasks, load_tasks
@@ -100,6 +101,13 @@ class TestTaskManager(unittest.TestCase):
         add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
         complete_task(self.tasks, "Persistent Task")
         self.assertEqual(self.tasks[0].status, "completed")
+
+    @patch('builtins.print')
+    def test_complete_already_complete_task(self, mock_print):
+        add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
+        complete_task(self.tasks, "Persistent Task")
+        complete_task(self.tasks, "Persistent Task")
+        mock_print.assert_called_with('Task is already complete.')
 
 
 
