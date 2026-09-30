@@ -1,5 +1,7 @@
 import unittest
+from unittest.mock import patch
 from src.task_manager import add_task, delete_task, filter_tasks_by_status
+from src.task_manager import complete_task
 from src.file_handler import save_tasks, load_tasks
 from src.task import Task
 import os
@@ -94,6 +96,36 @@ class TestTaskManager(unittest.TestCase):
         loaded_tasks = load_tasks()
         self.assertEqual(len(loaded_tasks), 1)
         self.assertEqual(loaded_tasks[0].title, "Persistent Task")
+
+    def test_complete_task(self):
+        '''
+        Test task status can be updated from pending to completed.
+        '''
+        add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
+        complete_task(self.tasks, "Persistent Task")
+        self.assertEqual(self.tasks[0].status, "completed")
+
+@patch('builtins.print')
+def test_complete_already_complete_task(self, mock_print):
+    """
+    Test completed task cannot be completed again.
+    """
+    add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
+
+    complete_task(self.tasks, "Persistent Task")
+    complete_task(self.tasks, "Persistent Task")
+
+    mock_print.assert_called_with('Task is already complete.')
+
+
+@patch('builtins.print')
+def test_complete_task_does_not_exist(self, mock_print):
+    """
+    Test handles trying to complete a task that does not exist.
+    """
+    complete_task(self.tasks, "Test Task")
+
+    mock_print.assert_called_with('Task does not exist.')
 
 
 if __name__ == "__main__":
