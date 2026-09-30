@@ -93,9 +93,10 @@ class TestTaskManager(unittest.TestCase):
         """
         tasks = []
         list_tasks(tasks)
+
         mock_print.assert_called_with("No tasks found.")
         sys.stdout.write(str(mock_print.call_args) + '\n')
-                     
+
     def test_save_and_load_tasks(self):
         """
         Test saving tasks to a file and loading them back.
@@ -104,6 +105,7 @@ class TestTaskManager(unittest.TestCase):
         add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
         save_tasks(self.tasks)
         loaded_tasks = load_tasks()
+
         self.assertEqual(len(loaded_tasks), 1)
         self.assertEqual(loaded_tasks[0].title, "Persistent Task")
 
