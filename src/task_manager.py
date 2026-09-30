@@ -1,8 +1,6 @@
 from src.task import Task
 from src.file_handler import save_tasks
 from datetime import datetime
-from rich.console import Console
-from rich.table import Table
 
 
 def add_task(tasks, title, description, due_date):
