@@ -93,7 +93,12 @@ def list_tasks(tasks, status=None):
         print("No tasks found.")
         return
     # Create new table with four columns with headers.
-    table = Table(show_header=True, box=box.SQUARE_DOUBLE_HEAD, header_style="bold magenta", show_lines=True)
+    table = Table(
+        show_header=True,
+        box=box.SQUARE_DOUBLE_HEAD,
+        header_style="bold magenta",
+        show_lines=True
+        )
     table.add_column("Due Date", style="dim", width=12)
     table.add_column("Title", justify="center")
     table.add_column("Description", justify="center")
@@ -101,14 +106,12 @@ def list_tasks(tasks, status=None):
     console = Console()
     # Loop through tasks and add each as new row
     for task in filtered:
-        table.add_row(
-            task.due_date, 
-            task.title, 
-            task.description, 
-            task.status
-            )
+        table.add_row(task.due_date,
+                      task.title,
+                      task.description,
+                      task.status
+                      )
     console.print(table)
-
 
 
 def filter_tasks_by_status(tasks, status):
