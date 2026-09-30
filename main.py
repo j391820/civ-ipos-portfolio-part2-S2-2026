@@ -27,6 +27,7 @@ def handle_filter_task(tasks, choice):
     else:
         print("Invalid choice. Try again.")
 
+
 def main():
     tasks = load_tasks()
     while True:
