@@ -8,13 +8,11 @@ def handle_filter_task(tasks, choice):
 
     Args:
         tasks (list): The list of existing Task objects.
-        choice (string): Users choice as a number string. 
-
+        choice (string): Users choice as a number string.
     Returns:
         None.
-
     Side Effects:
-        - Print all or status filtered list of tasks. 
+        - Print all or status filtered list of tasks.
     """
     if choice == "1":
         list_tasks(tasks)
