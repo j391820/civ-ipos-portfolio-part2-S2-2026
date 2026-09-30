@@ -106,11 +106,12 @@ def list_tasks(tasks, status=None):
     console = Console()
     # Loop through tasks and add each as new row
     for task in filtered:
-        table.add_row(task.due_date,
-                      task.title,
-                      task.description,
-                      task.status
-                      )
+        table.add_row(
+            task.due_date,
+            task.title,
+            task.description,
+            task.status
+            )
     console.print(table)
 
 
