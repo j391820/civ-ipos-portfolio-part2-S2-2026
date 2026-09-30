@@ -1,4 +1,4 @@
-from src.task_manager import add_task, delete_task, list_tasks
+from src.task_manager import add_task, delete_task, list_tasks, complete_task
 from src.file_handler import load_tasks
 
 
@@ -8,8 +8,9 @@ def main():
         print("\nTask Manager CLI")
         print("1. Add Task")
         print("2. Delete Task")
-        print("3. List Tasks")
-        print("4. Exit")
+        print("3. Complete Task")
+        print("4. List Tasks")
+        print("5. Exit")
 
         choice = input("Enter your choice: ")
         if choice == "1":
@@ -24,8 +25,11 @@ def main():
             else:
                 print("Task not found.")
         elif choice == "3":
-            list_tasks(tasks)
+            title = input("Title of the task to complete: ")
+            complete_task(tasks, title)
         elif choice == "4":
+            list_tasks(tasks)
+        elif choice == "5":
             print("Exiting Task Manager.")
             break
         else:
