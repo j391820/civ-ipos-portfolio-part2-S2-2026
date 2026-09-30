@@ -97,8 +97,7 @@ def list_tasks(tasks, status=None):
         show_header=True,
         box=box.SQUARE_DOUBLE_HEAD,
         header_style="bold magenta",
-        show_lines=True
-        )
+        show_lines=True)
     table.add_column("Due Date", style="dim", width=12)
     table.add_column("Title", justify="center")
     table.add_column("Description", justify="center")
@@ -110,8 +109,7 @@ def list_tasks(tasks, status=None):
             task.due_date,
             task.title,
             task.description,
-            task.status
-            )
+            task.status)
     console.print(table)
 
 
