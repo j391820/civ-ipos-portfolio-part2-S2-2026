@@ -121,5 +121,7 @@ def complete_task(tasks, title):
                 print("Task has been successfully completed.")
             else:
                 print("Task is already complete.")
-        else:
-            print("Task does not exist.")
+            # ends here if either of these paths are run
+            return
+    # only hits this if title == task.title fails
+    print("Task does not exist.")

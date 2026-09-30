@@ -109,11 +109,10 @@ class TestTaskManager(unittest.TestCase):
         complete_task(self.tasks, "Persistent Task")
         mock_print.assert_called_with('Task is already complete.')
 
-    @patch('builtins.print')
-    def test_complete_task_does_not_exist(self, mock_print):
-        complete_task(self.tasks, "Persistent Task")
+    @patch('builtins.print') 
+    def test_complete_task_does_not_exist(self, mock_print): 
+        complete_task(self.tasks, "Test Task") 
         mock_print.assert_called_with('Task does not exist.')
-
 
 
 if __name__ == "__main__":
