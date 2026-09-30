@@ -70,6 +70,8 @@ def list_tasks(tasks, status=None):
 
     Args:
         tasks (list): The list of existing Task objects.
+        status (str, optional): The status to filter tasks
+        by (e.g., "pending" or "completed").
 
     Returns:
         None
@@ -90,12 +92,14 @@ def list_tasks(tasks, status=None):
     if not filtered:
         print("No tasks found.")
         return
+    # Create new table with four columns with headers.
     table = Table(show_header=True, box=box.SQUARE_DOUBLE_HEAD, header_style="bold magenta", show_lines=True)
     table.add_column("Due Date", style="dim", width=12)
     table.add_column("Title", justify="center")
     table.add_column("Description", justify="center")
     table.add_column("Status", justify="right")
     console = Console()
+    # Loop through tasks and add each as new row
     for task in filtered:
         table.add_row(
             task.due_date, 
