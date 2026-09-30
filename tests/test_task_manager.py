@@ -1,8 +1,10 @@
 import unittest
-from src.task_manager import add_task, delete_task, filter_tasks_by_status
+from unittest.mock import patch
+from src.task_manager import add_task, delete_task, filter_tasks_by_status, list_tasks
 from src.file_handler import save_tasks, load_tasks
 from src.task import Task
 import os
+import sys
 
 TEST_FILE = "test_tasks.bin"
 
@@ -83,6 +85,17 @@ class TestTaskManager(unittest.TestCase):
         filtered = filter_tasks_by_status(self.tasks, "completed")
         self.assertEqual(len(filtered), 1)
         self.assertEqual(filtered[0].title, "Task 2")
+
+    @patch('builtins.print')
+    def test_empty_list_list_task_prints_error(self, mock_print):
+        """
+        Test that passing an empty list to list_task will print 'No tasks found.'
+        """
+        tasks = []
+        list_tasks(tasks)
+        mock_print.assert_called_with("No tasks found.")
+        sys.stdout.write(str( mock_print.call_args ) + '\n')
+        
 
     def test_save_and_load_tasks(self):
         """
