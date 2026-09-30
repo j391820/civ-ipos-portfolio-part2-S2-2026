@@ -127,7 +127,7 @@ def complete_task(tasks, title):
             - Task has been successfully completed.
             - Task is already complete.
             - Task does not exist.
-    """    
+    """
     for task in tasks:
         if title == task.title:
             if task.status == "pending":
@@ -138,7 +138,9 @@ def complete_task(tasks, title):
                 print("Task has been successfully completed.")
             else:
                 print("Task is already complete.")
-            # ends here if either of these paths are run
+
+            # Ends here if a matching task is found
             return
-    # only hits this if title == task.title fails
+
+    # Only reached if no task has a matching title
     print("Task does not exist.")

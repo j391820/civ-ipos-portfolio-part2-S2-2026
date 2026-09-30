@@ -105,23 +105,27 @@ class TestTaskManager(unittest.TestCase):
         complete_task(self.tasks, "Persistent Task")
         self.assertEqual(self.tasks[0].status, "completed")
 
-    @patch('builtins.print')
-    def test_complete_already_complete_task(self, mock_print):
-        '''
-        Test completed task cannot be completed again.
-        '''        
-        add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
-        complete_task(self.tasks, "Persistent Task")
-        complete_task(self.tasks, "Persistent Task")
-        mock_print.assert_called_with('Task is already complete.')
+@patch('builtins.print')
+def test_complete_already_complete_task(self, mock_print):
+    """
+    Test completed task cannot be completed again.
+    """
+    add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
 
-    @patch('builtins.print') 
-    def test_complete_task_does_not_exist(self, mock_print):
-        '''
-        Test handles trying to complete a task that does exist.
-        '''         
-        complete_task(self.tasks, "Test Task") 
-        mock_print.assert_called_with('Task does not exist.')
+    complete_task(self.tasks, "Persistent Task")
+    complete_task(self.tasks, "Persistent Task")
+
+    mock_print.assert_called_with('Task is already complete.')
+
+
+@patch('builtins.print')
+def test_complete_task_does_not_exist(self, mock_print):
+    """
+    Test handles trying to complete a task that does not exist.
+    """
+    complete_task(self.tasks, "Test Task")
+
+    mock_print.assert_called_with('Task does not exist.')
 
 
 if __name__ == "__main__":
