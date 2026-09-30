@@ -1,5 +1,6 @@
 from src.task_manager import add_task, delete_task, list_tasks
 from src.file_handler import load_tasks
+from rich.prompt import Prompt
 
 
 def main():
@@ -18,7 +19,9 @@ def main():
             due_date = input("Due Date (DD-MM-YYYY): ")
             add_task(tasks, title, description, due_date)
         elif choice == "2":
-            title = input("Title of the task to delete: ")
+            list_tasks(tasks)
+            title = Prompt.ask("Title of the task to delete", case_sensitive=False)
+            # title = input("Title of the task to delete: ")
             if delete_task(tasks, title):
                 print("Task deleted successfully.")
             else:
