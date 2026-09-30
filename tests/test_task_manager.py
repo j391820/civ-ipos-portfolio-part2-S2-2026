@@ -1,5 +1,6 @@
 import unittest
 from src.task_manager import add_task, delete_task, filter_tasks_by_status
+from src.task_manager import complete_task
 from src.file_handler import save_tasks, load_tasks
 from src.task import Task
 import os
@@ -94,6 +95,12 @@ class TestTaskManager(unittest.TestCase):
         loaded_tasks = load_tasks()
         self.assertEqual(len(loaded_tasks), 1)
         self.assertEqual(loaded_tasks[0].title, "Persistent Task")
+
+    def test_complete_task(self):
+        add_task(self.tasks, "Persistent Task", "Description", "01-12-2024")
+        complete_task(self.tasks, "Persistent Task")
+        self.assertEqual(self.tasks[0].status, "completed")
+
 
 
 if __name__ == "__main__":
