@@ -108,3 +108,39 @@ def filter_tasks_by_status(tasks, status):
         list: A list of Task objects that match the specified status.
     """
     return [task for task in tasks if task.status == status]
+
+
+def complete_task(tasks, title):
+    """
+    Mark supplied task status as complete.
+
+    Args:
+        tasks (list): The list of existing Task objects.
+        title (str): The title of the task to be updated.
+
+    Returns:
+        Empty
+
+    Side Effects:
+        - Saves the updated task list to a file using `save_tasks`.
+        - Prints
+            - Task has been successfully completed.
+            - Task is already complete.
+            - Task does not exist.
+    """
+    for task in tasks:
+        if title == task.title:
+            if task.status == "pending":
+                task.status = "completed"
+                index = tasks.index(task)
+                tasks[index] = task
+                save_tasks(tasks)
+                print("Task has been successfully completed.")
+            else:
+                print("Task is already complete.")
+
+            # Ends here if a matching task is found
+            return
+
+    # Only reached if no task has a matching title
+    print("Task does not exist.")
