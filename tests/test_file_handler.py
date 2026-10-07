@@ -1,7 +1,6 @@
 from pprint import pprint
 from src.file_handler import load_tasks, save_tasks
 from src.task import Task
-from loguru import logger
 
 
 def test_file_handler():
