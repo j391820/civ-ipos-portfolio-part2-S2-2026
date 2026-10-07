@@ -30,9 +30,11 @@ def main():
             list_tasks(tasks)
         elif choice == "4":
             print("Exiting Task Manager.")
+            logger.info("User closed app.")
             break
         else:
             print("Invalid choice. Try again.")
+            logger.warning("User selected invalid menu option.")
 
 
 if __name__ == "__main__":
