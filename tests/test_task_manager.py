@@ -3,6 +3,7 @@ from src.task_manager import add_task, delete_task, filter_tasks_by_status
 from src.file_handler import save_tasks, load_tasks
 from src.task import Task
 import os
+from loguru import logger
 
 TEST_FILE = "test_tasks.bin"
 
@@ -18,6 +19,7 @@ class TestTaskManager(unittest.TestCase):
         Set up the test environment by initialising an empty task list
         and backing up the original task binary file.
         """
+        logger.remove()
         self.tasks = []
         self.original_file = "tasks.bin"
         if os.path.exists(TEST_FILE):
