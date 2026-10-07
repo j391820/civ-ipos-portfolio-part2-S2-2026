@@ -67,7 +67,6 @@ def delete_task(tasks, title):
     return False
 
 
-
 def list_tasks(tasks, status=None):
     """
     Display tasks in the task list, optionally filtered by status.
