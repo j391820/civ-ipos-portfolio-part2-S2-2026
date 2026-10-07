@@ -1,5 +1,10 @@
 from src.task_manager import add_task, delete_task, list_tasks
 from src.file_handler import load_tasks
+from loguru import logger
+
+
+logger.remove()
+logger.add("logs/app.log", retention="30 days")
 
 
 def main():
@@ -27,9 +32,11 @@ def main():
             list_tasks(tasks)
         elif choice == "4":
             print("Exiting Task Manager.")
+            logger.info("User closed app.")
             break
         else:
             print("Invalid choice. Try again.")
+            logger.warning("User selected invalid menu option.")
 
 
 if __name__ == "__main__":
