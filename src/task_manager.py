@@ -101,7 +101,7 @@ def list_tasks(tasks):
     table.add_column("Status", justify="right")
     console = Console()
     # Loop through tasks and add each as new row
-    for task in filtered:
+    for task in tasks:
         table.add_row(
             task.due_date,
             task.title,
