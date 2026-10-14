@@ -121,6 +121,7 @@ class TestTaskManager(unittest.TestCase):
         complete_task(self.tasks, "Persistent Task")
         self.assertEqual(self.tasks[0].status, "completed")
 
+
 @patch('builtins.print')
 def test_complete_already_complete_task(self, mock_print):
     """

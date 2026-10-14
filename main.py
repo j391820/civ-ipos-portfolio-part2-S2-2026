@@ -1,4 +1,5 @@
-from src.task_manager import add_task, delete_task, list_tasks, filter_tasks_by_status, complete_task
+from src.task_manager import add_task, delete_task, list_tasks, filter_tasks_by_status
+from src.task_manager import complete_task
 from src.file_handler import load_tasks
 from loguru import logger
 
