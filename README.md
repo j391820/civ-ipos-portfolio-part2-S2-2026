@@ -198,6 +198,11 @@ pip freeze > requirements.txt
 ```
 
 ---
+### Dependencies
+This project relies on the following libraries:
+* **[Loguru](https://github.com/delgan/loguru)** - Simplified python logging
+* **[Rich](https://github.com/textualize/rich)** -  Rich text and beautiful formatting in the terminal
+---
 
 ### 8. Run your workflows locally
 

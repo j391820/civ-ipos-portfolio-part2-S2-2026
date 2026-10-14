@@ -1,6 +1,9 @@
 from src.task import Task
 from src.file_handler import save_tasks
 from datetime import datetime
+from rich import box
+from rich.console import Console
+from rich.table import Table
 from loguru import logger
 
 
@@ -96,12 +99,26 @@ def list_tasks(tasks, status=None):
         print("No tasks found.")
         logger.info("No tasks found.")
         return
+    # Create new table with four columns with headers.
+    table = Table(
+        show_header=True,
+        box=box.SQUARE_DOUBLE_HEAD,
+        header_style="bold magenta",
+        show_lines=True)
+    table.add_column("Due Date", style="dim", width=12)
+    table.add_column("Title", justify="center")
+    table.add_column("Description", justify="center")
+    table.add_column("Status", justify="right")
+    console = Console()
+    # Loop through tasks and add each as new row
     for task in filtered:
-        print(
-            f"{task.title} | {task.description} | "
-            f"Due: {task.due_date} | Status: {task.status}"
-        )
-        logger.info("User printed list of tasks.")
+        table.add_row(
+            task.due_date,
+            task.title,
+            task.description,
+            task.status)
+    console.print(table)
+    logger.info("User printed list of tasks.")
 
 
 def filter_tasks_by_status(tasks, status):
