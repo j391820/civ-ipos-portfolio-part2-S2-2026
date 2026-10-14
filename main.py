@@ -118,7 +118,7 @@ def main():
             print("2. Pending")
             print("3. Completed")
             choice = input("Enter your choice: ")
-            handle_filter_task(tasks, choice) 
+            handle_filter_task(tasks, choice)
         elif choice == "5":
             print("Exiting Task Manager.")
             logger.info("User closed app.")
