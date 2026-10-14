@@ -4,6 +4,7 @@ from datetime import datetime
 from rich import box
 from rich.console import Console
 from rich.table import Table
+from loguru import logger
 
 
 def add_task(tasks, title, description, due_date):
@@ -28,6 +29,7 @@ def add_task(tasks, title, description, due_date):
     # Prevent duplicate tasks
     if any(task.title == title for task in tasks):
         print("Error: A task with this title already exists.")
+        logger.warning("User tried to add duplicate task.")
         return False
 
     # Validate due date format
@@ -35,9 +37,11 @@ def add_task(tasks, title, description, due_date):
         datetime.strptime(due_date, "%d-%m-%Y")
     except ValueError:
         print("Error: Invalid date format. Use DD-MM-YYYY.")
+        logger.warning("User tried to create a task with incorrect date format.")
         return False
 
     tasks.append(Task(title, description, due_date))
+    logger.success(f"Task ~{title}~ created successfully.")
     save_tasks(tasks)
     return True
 
@@ -60,7 +64,9 @@ def delete_task(tasks, title):
         if task.title == title:
             tasks.remove(task)
             save_tasks(tasks)
+            logger.success(f"Task ~{title}~ removed.")
             return True
+    logger.warning(f"Failed to remove task ~{title}~.")
     return False
 
 
@@ -91,6 +97,7 @@ def list_tasks(tasks, status=None):
 
     if not filtered:
         print("No tasks found.")
+        logger.info("No tasks found.")
         return
     # Create new table with four columns with headers.
     table = Table(
@@ -111,6 +118,7 @@ def list_tasks(tasks, status=None):
             task.description,
             task.status)
     console.print(table)
+    logger.info("User printed list of tasks.")
 
 
 def filter_tasks_by_status(tasks, status):
