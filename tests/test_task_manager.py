@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import patch
 from src.task_manager import add_task, delete_task, filter_tasks_by_status, list_tasks
-from src.task_manager import add_task, delete_task, filter_tasks_by_status
 from src.task_manager import complete_task
 from src.file_handler import save_tasks, load_tasks
 from src.task import Task
