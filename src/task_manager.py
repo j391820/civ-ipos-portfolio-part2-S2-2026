@@ -70,7 +70,7 @@ def delete_task(tasks, title):
     return False
 
 
-def list_tasks(tasks, status=None):
+def list_tasks(tasks):
     """
     Display tasks in the task list, optionally filtered by status.
 
@@ -85,17 +85,7 @@ def list_tasks(tasks, status=None):
     Side Effects:
         - Prints the list of tasks to the console.
     """
-    if not status:
-        # If status is not set
-        filtered = tasks
-    else:
-        # Filter tasks based on their status
-        filtered = []
-        for task in tasks:
-            if task.status == status:
-                filtered.append(task)
-
-    if not filtered:
+    if len(tasks) < 1:
         print("No tasks found.")
         logger.info("No tasks found.")
         return
@@ -111,7 +101,7 @@ def list_tasks(tasks, status=None):
     table.add_column("Status", justify="right")
     console = Console()
     # Loop through tasks and add each as new row
-    for task in filtered:
+    for task in tasks:
         table.add_row(
             task.due_date,
             task.title,
