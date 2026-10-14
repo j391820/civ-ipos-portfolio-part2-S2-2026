@@ -1,6 +1,10 @@
 from src.task import Task
 from src.file_handler import save_tasks
 from datetime import datetime
+from rich import box
+from rich.console import Console
+from rich.table import Table
+from loguru import logger
 
 
 def add_task(tasks, title, description, due_date):
@@ -25,6 +29,7 @@ def add_task(tasks, title, description, due_date):
     # Prevent duplicate tasks
     if any(task.title == title for task in tasks):
         print("Error: A task with this title already exists.")
+        logger.warning("User tried to add duplicate task.")
         return False
 
     # Validate due date format
@@ -32,9 +37,11 @@ def add_task(tasks, title, description, due_date):
         datetime.strptime(due_date, "%d-%m-%Y")
     except ValueError:
         print("Error: Invalid date format. Use DD-MM-YYYY.")
+        logger.warning("User tried to create a task with incorrect date format.")
         return False
 
     tasks.append(Task(title, description, due_date))
+    logger.success(f"Task ~{title}~ created successfully.")
     save_tasks(tasks)
     return True
 
@@ -57,11 +64,13 @@ def delete_task(tasks, title):
         if task.title == title:
             tasks.remove(task)
             save_tasks(tasks)
+            logger.success(f"Task ~{title}~ removed.")
             return True
+    logger.warning(f"Failed to remove task ~{title}~.")
     return False
 
 
-def list_tasks(tasks, status=None):
+def list_tasks(tasks):
     """
     Display tasks in the task list, optionally filtered by status.
 
@@ -76,24 +85,30 @@ def list_tasks(tasks, status=None):
     Side Effects:
         - Prints the list of tasks to the console.
     """
-    if not status:
-        # If status is not set
-        filtered = tasks
-    else:
-        # Filter tasks based on their status
-        filtered = []
-        for task in tasks:
-            if task.status == status:
-                filtered.append(task)
-
-    if not filtered:
+    if len(tasks) < 1:
         print("No tasks found.")
+        logger.info("No tasks found.")
         return
-    for task in filtered:
-        print(
-            f"{task.title} | {task.description} | "
-            f"Due: {task.due_date} | Status: {task.status}"
-        )
+    # Create new table with four columns with headers.
+    table = Table(
+        show_header=True,
+        box=box.SQUARE_DOUBLE_HEAD,
+        header_style="bold magenta",
+        show_lines=True)
+    table.add_column("Due Date", style="dim", width=12)
+    table.add_column("Title", justify="center")
+    table.add_column("Description", justify="center")
+    table.add_column("Status", justify="right")
+    console = Console()
+    # Loop through tasks and add each as new row
+    for task in tasks:
+        table.add_row(
+            task.due_date,
+            task.title,
+            task.description,
+            task.status)
+    console.print(table)
+    logger.info("User printed list of tasks.")
 
 
 def filter_tasks_by_status(tasks, status):

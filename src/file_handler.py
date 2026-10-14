@@ -1,5 +1,6 @@
 import pickle
 import os
+from loguru import logger
 
 TASK_FILE = "tasks.bin"
 
@@ -14,7 +15,9 @@ def load_tasks():
     """
     if os.path.exists(TASK_FILE):
         with open(TASK_FILE, "rb") as file:
+            logger.success("Loaded existing task file.")
             return pickle.load(file)
+    logger.info("No existing file found, creating empty list.")
     return []
 
 
@@ -30,4 +33,5 @@ def save_tasks(tasks):
         - Overwrites the file if it already exists.
     """
     with open(TASK_FILE, "wb") as file:
+        logger.success("Saved task list.")
         pickle.dump(tasks, file)
