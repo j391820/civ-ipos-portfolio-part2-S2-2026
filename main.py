@@ -1,4 +1,5 @@
 from src.task_manager import add_task, delete_task, list_tasks, filter_tasks_by_status
+from src.task_manager import complete_task
 from src.file_handler import load_tasks
 from loguru import logger
 
@@ -54,6 +55,22 @@ def handle_delete_task(tasks):
         print("No tasks added yet.")
 
 
+def handle_complete_task(tasks):
+    """
+    Updates task status from pending to completed.
+
+    Args:
+        tasks (list): The list of existing Task objects.
+
+    Returns:
+        None.
+    """
+    filtered_tasks = filter_tasks_by_status(tasks, "pending")
+    list_tasks(filtered_tasks)
+    title = input("Title of the task to complete: ")
+    complete_task(tasks, title)
+
+
 def handle_filter_task(tasks, choice):
     """
     Filter task list display depending on users input.
@@ -84,8 +101,9 @@ def main():
         print("\nTask Manager CLI")
         print("1. Add Task")
         print("2. Delete Task")
-        print("3. List Tasks")
-        print("4. Exit")
+        print("3. Complete Task")
+        print("4. List Tasks")
+        print("5. Exit")
 
         choice = input("Enter your choice: ")
         if choice == "1":
@@ -93,13 +111,15 @@ def main():
         elif choice == "2":
             handle_delete_task(tasks)
         elif choice == "3":
+            handle_complete_task(tasks)
+        elif choice == "4":
             print("Please choose a filter: ")
             print("1. All")
             print("2. Pending")
             print("3. Completed")
             choice = input("Enter your choice: ")
             handle_filter_task(tasks, choice)
-        elif choice == "4":
+        elif choice == "5":
             print("Exiting Task Manager.")
             logger.info("User closed app.")
             break
